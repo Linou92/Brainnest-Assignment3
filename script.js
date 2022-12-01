@@ -1,17 +1,19 @@
-/* Creating objects and assigning probabilities to numbers for easy use in the code 0 for lose and 1 for win */
+/****** Creating objects and assigning different combinations to numbers for easy use in the code
+ ******  0 for lose and 1 for win 
+ ******/
 const rock = { // rock wins over rock and scissors but loses over paper
     "rock":1, 
     "paper":0, 
     "scissors":1
 }
 
-const paper = {
+const paper = { // paper wins over rock and paper but loses over scissors
     "rock":1, 
     "paper":1, 
     "scissors":0
 }
 
-const scissors = {
+const scissors = { // scissors wins over paper and scissors but loses over rock
     "rock":0, 
     "paper":1, 
     "scissors":1
@@ -23,11 +25,12 @@ const choices = {
     "scissors":scissors
 }
 
-/* Game's variables */
+/****** Game's variables ******/
 const quit = "quit"
 
-/* function allowing the computer to make a guess between 
-   returns rock, paper or scissors */ 
+/****** function allowing the computer to make a guess between 
+ ****** returns rock, paper or scissors 
+ ******/ 
 let computerPlay = () => {
     console.log("Waiting for the computer to choose its guess...")
     let computerGuess = Math.round(Math.random()*2) // return a random number between 0 and 2
@@ -43,10 +46,9 @@ let computerPlay = () => {
     }
 }
 
-//console.log("Computer Play Test = ", computerPlay())
-
-/* function allowing the user to make a guess 
-   returns rock, paper or scissors */
+/****** function allowing the user to make a guess 
+ ****** returns rock, paper or scissors 
+ ******/
 let userPlay = () => {
     let userChoice = prompt('Let\'s play Rock, Paper and Scissors Game ! Please pick a guess by writing paper, rock or scissors or quit if you don\'t want to play:')
     userChoice = userChoice.toLowerCase().trim() // for case sensitivity and spaces
@@ -60,23 +62,29 @@ let userPlay = () => {
     return userChoice
 }
 
-//console.log("Your guess is ", userPlay())
-
-/* function to quit the game if the player's input is quit
-   returns -1 */
+/****** function to quit the game if the player's input is quit
+ ****** returns -1 
+ ******/
 let quitGame = () => {
     alert("You are about to quit the game !")
     return -1
 }
 
-/* function to play one single round 
-   returns 1 if the player wins, 0 if he looses and 2 if it's a tie */
-let playRound = (playerSelection, computerSelection) => { // rock vs scissors example
-    let userGuess = choices[playerSelection] // choices["rock"] => rock obj => {rock: 1, paper: 0, scissors: 1}
-    let computerGuess = choices[computerSelection] // choices["scissors"] => scissors obj => {rock: 0, paper: 1, scissors: 1}
-    
-    let userScore = userGuess[computerSelection] // gets value of "scissors" in userGuess object => 1
-    let computerScore = computerGuess[playerSelection] // gets value of "rock" in computerGuess object => 0
+/****** function to play one single round 
+ ****** returns 1 if the player wins, 
+ ****** 0 if he looses
+ ****** 2 if it's a tie 
+ ****** example: rock vs scissors 
+ ****** userGuess = choices["rock"] => rock obj => {rock: 1, paper: 0, scissors: 1}
+ ****** computerGuess = choices["scissors"] => scissors obj => {rock: 0, paper: 1, scissors: 1}
+ ****** userScore = gets value of "scissors" in userGuess object => 1 => user wins
+ ****** computerScore = gets value of "rock" in computerGuess object => 0 => computer looses 
+ ******/
+let playRound = (playerSelection, computerSelection) => { 
+    let userGuess = choices[playerSelection] 
+    let computerGuess = choices[computerSelection] 
+    let userScore = userGuess[computerSelection] 
+    let computerScore = computerGuess[playerSelection] 
     
    if(userScore > computerScore){
     alert (playerSelection +' wins over '+ computerSelection +'. Congrats you won ! 🎉' )
@@ -92,12 +100,7 @@ let playRound = (playerSelection, computerSelection) => { // rock vs scissors ex
    }
 }
 
-/*const playerSelection = userPlay()
-const computerSelection = computerPlay()
-console.log("The computer guess is :  ", computerSelection)
-console.log("PlayRound Test = " ,playRound(playerSelection, computerSelection))*/
-
-/* function to play 5 rounds */
+/****** function to play 5 rounds ******/
 let game = () => {
     let userFinalScore = 0
     let computerFinalScore = 0
