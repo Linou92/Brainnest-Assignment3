@@ -1,7 +1,7 @@
 /****** Creating objects and assigning different combinations to numbers for easy use in the code
  ******  0 for lose and 1 for win 
  ******/
-const rock = { // rock wins over rock and scissors but loses over paper
+ const rock = { // rock wins over rock and scissors but loses over paper
     "rock":1, 
     "paper":0, 
     "scissors":1
@@ -47,19 +47,22 @@ let computerPlay = () => {
 }
 
 /****** function allowing the user to make a guess 
- ****** returns rock, paper or scissors 
+ ****** returns rock, paper, scissors or quit 
  ******/
 let userPlay = () => {
     let userChoice = prompt('Let\'s play Rock, Paper and Scissors Game ! Please pick a guess by writing paper, rock or scissors or quit if you don\'t want to play:')
-    userChoice = userChoice.toLowerCase().trim() // for case sensitivity and spaces
-    /* check the validity of the user guess */
-    let validGuess = (userGuess) => (userGuess == "rock" || userGuess == "paper" || userGuess == "scissors" || userGuess == "quit")  
-    while(!(validGuess(userChoice))) {
-        userChoice = prompt('This input is not valid ! Please choose a valid guess.')
-        userChoice = userChoice.toLowerCase()
+    if(userChoice == null) quitGame() // if cancel is clicked
+    else{
+        userChoice = userChoice.toLowerCase().trim() // for case sensitivity and spaces
+        /* check the validity of the user guess */
+        let validGuess = (userGuess) => (userGuess == "rock" || userGuess == "paper" || userGuess == "scissors" || userGuess == "quit")  
+        while(!(validGuess(userChoice))) {
+            userChoice = prompt('This input is not valid ! Please choose a valid guess.')
+            userChoice = userChoice.toLowerCase()
+        }
+        console.log("Your guess is : ", userChoice)
+        return userChoice
     }
-    console.log("Your guess is : ", userChoice)
-    return userChoice
 }
 
 /****** function to quit the game if the player's input is quit
