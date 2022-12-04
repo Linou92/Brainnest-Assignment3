@@ -1,19 +1,16 @@
-/****** Creating objects and assigning different combinations to numbers for easy use in the code
- ******  0 for lose and 1 for win 
- ******/
- const rock = { // rock wins over rock and scissors but loses over paper
+const rock = { 
     "rock":1, 
     "paper":0, 
     "scissors":1
 }
 
-const paper = { // paper wins over rock and paper but loses over scissors
+const paper = { 
     "rock":1, 
     "paper":1, 
     "scissors":0
 }
 
-const scissors = { // scissors wins over paper and scissors but loses over rock
+const scissors = { 
     "rock":0, 
     "paper":1, 
     "scissors":1
@@ -25,15 +22,11 @@ const choices = {
     "scissors":scissors
 }
 
-/****** Game's variables ******/
 const quit = "quit"
 
-/****** function allowing the computer to make a guess between 
- ****** returns rock, paper or scissors 
- ******/ 
 let computerPlay = () => {
     console.log("Waiting for the computer to choose its guess...")
-    let computerGuess = Math.round(Math.random()*2) // return a random number between 0 and 2
+    let computerGuess = Math.round(Math.random()*2) 
     switch(computerGuess){
         case 0: 
             return "rock"
@@ -46,15 +39,11 @@ let computerPlay = () => {
     }
 }
 
-/****** function allowing the user to make a guess 
- ****** returns rock, paper, scissors or quit 
- ******/
 let userPlay = () => {
     let userChoice = prompt('Let\'s play Rock, Paper and Scissors Game ! Please pick a guess by writing paper, rock or scissors or quit if you don\'t want to play:')
-    if(userChoice == null) quitGame() // if cancel is clicked
+    if(userChoice == null) quitGame() 
     else{
-        userChoice = userChoice.toLowerCase().trim() // for case sensitivity and spaces
-        /* check the validity of the user guess */
+        userChoice = userChoice.toLowerCase().trim() 
         let validGuess = (userGuess) => (userGuess == "rock" || userGuess == "paper" || userGuess == "scissors" || userGuess == "quit")  
         while(!(validGuess(userChoice))) {
             userChoice = prompt('This input is not valid ! Please choose a valid guess.')
@@ -65,24 +54,16 @@ let userPlay = () => {
     }
 }
 
-/****** function to quit the game if the player's input is quit
- ****** returns -1 
- ******/
 let quitGame = () => {
     alert("You are about to quit the game !")
     return -1
 }
 
-/****** function to play one single round 
- ****** returns 1 if the player wins, 
- ****** 0 if he looses
- ****** 2 if it's a tie 
- ****** example: rock vs scissors 
+/****** example: rock vs scissors 
  ****** userGuess = choices["rock"] => rock obj => {rock: 1, paper: 0, scissors: 1}
  ****** computerGuess = choices["scissors"] => scissors obj => {rock: 0, paper: 1, scissors: 1}
  ****** userScore = gets value of "scissors" in userGuess object => 1 => user wins
- ****** computerScore = gets value of "rock" in computerGuess object => 0 => computer looses 
- ******/
+ ****** computerScore = gets value of "rock" in computerGuess object => 0 => computer looses */
 let playRound = (playerSelection, computerSelection) => { 
     let userGuess = choices[playerSelection] 
     let computerGuess = choices[computerSelection] 
@@ -103,7 +84,6 @@ let playRound = (playerSelection, computerSelection) => {
    }
 }
 
-/****** function to play 5 rounds ******/
 let game = () => {
     let userFinalScore = 0
     let computerFinalScore = 0
