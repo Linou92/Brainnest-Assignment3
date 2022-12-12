@@ -4,10 +4,74 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js" differ></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="script.js" defer></script>
     <title>Rock, Paper, Scissors</title>
 </head>
 <body>
-    
+    <body>
+        <h1> Come and play Rock Paper Scissors with Mickey Mouse !</h1>
+        <h2> *** Five points game *** </h2>
+        <h1 id="round"></h1>
+        <main class="background">
+            <section class="scoreboard">
+                <figure class="logo">
+                    <img src='./images/logo.png' alt="mickey mouse face, name and body" />
+                </figure>
+                <div class="scoreWins">
+                    <p>WINS</p>
+                    <h1> 0 </h1>
+                </div>
+                <div class="scoreTies">
+                    <p>TIES</p>
+                    <h1> 0 </h1>
+                </div>
+                <div class="scoreLosses">
+                    <p>LOSSES</p>
+                    <h1> 0 </h1>
+                </div>
+            </section>
+            <section class="hands">
+                <figure class="hand paper">
+                    <img src="./images/paper.png" alt="paper mickey hand" id="paper" class="button paper"/>
+                </figure>
+                <figure class="hand scissors">
+                    <img src="./images/scissors.png" alt="scissors mickey hand" id="scissors" class="button scissors"/>
+                </figure>
+                <figure class="hand rock">
+                    <img src="./images/rock.png" alt="rock mickey hand" id="rock" class="button rock"/>
+                </figure>
+            </section>
+            <section class="result">
+                <div class="userhand">
+                    <h1>YOU PICKED</h1>
+                    <figure class="handImageContainer">
+                        <img id="userPickImage" alt="paper hand" src="./images/paper.png">
+                    </figure>
+                    <figure class="userImage">
+                        <img id="user" alt="cartoon character" src="./images/child.png">
+                    </figure>
+                </div>
+                <div class="referee">
+                    <div class="message">
+                        <h1> YOU WON! </h1>
+                        <p id="smiley"></p>
+                    </div>
+                    <div class="newGame" onclick="restartGame()">PLAY AGAIN</div>
+                </div>
+                <div class="computerhand">
+                    <h1>MICKEY PICKED</h1>
+                    <figure class="handImageContainer">
+                        <img id="computerPickImage" alt="paper hand" src='./images/paper.png' />
+                    </figure>
+                    <figure class="mickeyImage">
+                        <img id="computer" alt="mickey mouse character" src='./images/mickey.png' />
+                    </figure>
+                </div>
+            </section>
+        </main>
+        <footer class="footer">
+            Copyright &copy; Brainnest 2022. Designed by Lina Abu Hijleh.
+        </footer>
 </body>
 </html>

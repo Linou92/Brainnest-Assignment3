@@ -1,0 +1,19 @@
+/* LOADING FONT-FAMILY */
+@font-face {
+    font-family: 'New Walt Disney UI';
+    src: url(fonts/new-waltograph-font/NewWaltDisneyFontRegular-BPen.ttf) format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'tfb-font';
+    src: url(fonts/tfb-font/MickeyMTfb-wRRn.ttf) format('truetype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Walter';
+    src: url(fonts/walter-font/Walter-zrol.ttf) format('truetype');
+    font-style: normal;
+}

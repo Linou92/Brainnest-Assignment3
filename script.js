@@ -22,92 +22,130 @@ const choices = {
     "scissors":scissors
 }
 
-const quit = "quit"
+const handChoices = {
+    "rock": "./images/rock.png",
+    "paper": "./images/paper.png",
+    "scissors": "./images/scissors.png"
+}
+
+const rockBtn = document.getElementById("rock")
+const paperBtn = document.getElementById("paper")
+const scissorsBtn = document.getElementById("scissors")
+
+const win = document.querySelector(".scoreWins h1")
+const loss = document.querySelector(".scoreLosses h1")
+const tie = document.querySelector(".scoreTies h1")
+let round = document.getElementById("round")
+
+let finalScoreWins = 0
+let finalScoreTies = 0 
+let finalScoreLosses = 0
+let roundNb = 1
 
 let computerPlay = () => {
-    console.log("Waiting for the computer to choose its guess...")
-    let computerGuess = Math.round(Math.random()*2) 
-    switch(computerGuess){
-        case 0: 
-            return "rock"
-            break;
-        case 1:
-            return "paper"
-            break;
-        case 2: 
-            return "scissors"
-    }
-}
+    const choices = ["rock", "paper", "scissors"]
+    let computerGuess = choices[Math.floor(Math.random()*choices.length)]
+    document.getElementById("computerPickImage").src = handChoices[computerGuess]
+    return computerGuess
+} 
 
 let userPlay = () => {
-    let userChoice = prompt('Let\'s play Rock, Paper and Scissors Game ! Please pick a guess by writing paper, rock or scissors or quit if you don\'t want to play:')
-    if(userChoice == null) quitGame() 
-    else{
-        userChoice = userChoice.toLowerCase().trim() 
-        let validGuess = (userGuess) => (userGuess == "rock" || userGuess == "paper" || userGuess == "scissors" || userGuess == "quit")  
-        while(!(validGuess(userChoice))) {
-            userChoice = prompt('This input is not valid ! Please choose a valid guess.')
-            userChoice = userChoice.toLowerCase()
-        }
-        console.log("Your guess is : ", userChoice)
-        return userChoice
-    }
-}
+    round.innerText = "Round "+roundNb 
+    let buttons = document.querySelectorAll(".button")
+    buttons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            let name = e.target.id
+            if(name == "paper" || name == "scissors" || name == "rock"){
+                let hands = document.querySelector(".hands")
+                hands.style.display = "none"
+                let result = document.querySelector(".result")
+                result.style.display = "flex"
+                document.getElementById("userPickImage").src = handChoices[name]
+                return playRound(name, computerPlay())
+            }
+        })
+    })
+   
+} 
 
-let quitGame = () => {
-    alert("You are about to quit the game !")
-    return -1
-}
-
-/****** example: rock vs scissors 
- ****** userGuess = choices["rock"] => rock obj => {rock: 1, paper: 0, scissors: 1}
- ****** computerGuess = choices["scissors"] => scissors obj => {rock: 0, paper: 1, scissors: 1}
- ****** userScore = gets value of "scissors" in userGuess object => 1 => user wins
- ****** computerScore = gets value of "rock" in computerGuess object => 0 => computer looses */
-let playRound = (playerSelection, computerSelection) => { 
+let playRound = (playerSelection, computerSelection) => {
     let userGuess = choices[playerSelection] 
     let computerGuess = choices[computerSelection] 
     let userScore = userGuess[computerSelection] 
     let computerScore = computerGuess[playerSelection] 
     
    if(userScore > computerScore){
-    alert (playerSelection +' wins over '+ computerSelection +'. Congrats you won ! 🎉' )
+    setMessage("Congrats you won !", "N")
+    setScores(userScore, computerScore)
     return 1
    }
    else if(userScore < computerScore){
-    alert (playerSelection + ' looses over ' + computerSelection +'. Sorry you lost ! 😢')
+    setMessage("Sorry you lost !", "R")
+    setScores(userScore, computerScore)
     return 0
    }
    else{
-    alert ('😲 You both guessed the same guess which is '+ playerSelection + ' so it\'s a tie !')
+    setMessage("It's a tie !", "K")
+    setScores(userScore, computerScore)
     return 2
    }
 }
 
-let game = () => {
-    let userFinalScore = 0
-    let computerFinalScore = 0
-    alert("Rock paper scissors : 5 rounds game. Let's go !")
-    let score
-    for(let i=0; i<5; i++){
-        alert("Round "+ (i+1))
-        const playerSelection = userPlay()
-        if(playerSelection === quit) return quitGame()
-        else{
-            const computerSelection = computerPlay()
-            console.log("The computer guess is :  ", computerSelection)
-            score = playRound(playerSelection, computerSelection)
-           if(score == 1){
-                userFinalScore++
-            } 
-            else if(score == 0){
-                computerFinalScore++
-            }
-        }
-    }
-    if(userFinalScore < computerFinalScore) alert('Sorry you lost the game ! 😢 \n The final score is You:' + userFinalScore + ' Computer: ' + computerFinalScore)
-    else if(userFinalScore > computerFinalScore) alert('Congrats you won the game ! 🎉 \n The final score is You:' + userFinalScore + ' Computer: ' + computerFinalScore)
-    else alert('You are equal. No one won ! \n The final score is You:' + userFinalScore + ' Computer: ' + computerFinalScore)
+const setMessage = (msg, smiley) => {
+    document.querySelector(".message h1").innerText = msg
+    document.getElementById("smiley").innerText = smiley
 }
 
-game()
+const setScores = (userScore, computerScore) => {
+    if(userScore > computerScore){
+        finalScoreWins +=1
+        win.innerText = finalScoreWins
+    }
+    else if(userScore < computerScore){
+        finalScoreLosses +=1
+        loss.innerText = finalScoreLosses
+    }
+    else{
+        finalScoreTies +=1
+        tie.innerText = finalScoreTies
+    }
+}
+
+const checkEndGame = () => {
+    if(finalScoreLosses == 5 || finalScoreTies == 5 || finalScoreWins == 5){
+        if(finalScoreLosses == 5){
+            alert("GAME OVER ! OOPS YOU LOST 😢")
+            resetGame()
+        }
+        else if(finalScoreTies == 5){
+            alert("GAME OVER ! NO ONE WON 😲")
+            resetGame()
+        }
+        else if(finalScoreWins == 5){
+            alert("GAME OVER ! CONGRATS YOU WON 🎉")
+            resetGame()
+        }
+    }
+}
+
+const resetGame = () => {
+    win.innerText = 0
+    loss.innerText = 0
+    tie.innerText = 0
+    finalScoreLosses = 0
+    finalScoreTies = 0
+    finalScoreWins = 0
+    roundNb = 0
+}
+
+const restartGame = () => {
+    let result = document.querySelector(".result")
+    result.style.display = "none"
+    let hands = document.querySelector(".hands")
+    hands.style.display = "flex"
+    checkEndGame()
+    roundNb +=1
+    round.innerText = "Round "+roundNb
+}
+
+userPlay()
